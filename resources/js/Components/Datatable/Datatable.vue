@@ -87,7 +87,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <DatatableSearch @update:modelValue="searchTable()" :modelValue="debouncedSearch">
+                            <DatatableSearch @update:modelValue="searchTable" :modelValue="search">
                             </DatatableSearch>
 
                         </div>
@@ -129,7 +129,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <DatatablePagination @update:modelValue="paginateTable()" :modelValue="filters.pagination"
+                        <DatatablePagination @update:modelValue="paginateTable" :modelValue="filters.pagination"
                             :links="data.meta.links" :totalPage="data.meta.total">
                         </DatatablePagination>
                     </div>
@@ -144,7 +144,6 @@
 import { router } from '@inertiajs/vue3'
 import DatatablePagination from '../Datatable/DatatablePaginator.vue'
 import DatatableSearch from '../Datatable/DatatableSearch.vue'
-import { debounce } from 'lodash';
 export default {
     components: {
         DatatablePagination,
@@ -158,11 +157,6 @@ export default {
             pagination: this.filters.pagination,
             page: this.filters.page
         }
-    },
-    computed: {
-        debouncedSearch: debounce(function () {
-            return this.search;
-        }, 300)
     },
     props: {
         data: {
