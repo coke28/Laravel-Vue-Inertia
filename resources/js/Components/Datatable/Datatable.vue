@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<!-- eslint-disable vue/no-v-text-v-html-on-component -->
 <template>
     <div>
         <div class="py-12">
@@ -89,7 +87,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <DatatableSearch @update:modelValue="searchTable" :modelValue="filters.search">
+                            <DatatableSearch @update:modelValue="searchTable()" :modelValue="debouncedSearch">
                             </DatatableSearch>
 
                         </div>
@@ -131,7 +129,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <DatatablePagination @update:modelValue="paginateTable" :modelValue="filters.pagination"
+                        <DatatablePagination @update:modelValue="paginateTable()" :modelValue="filters.pagination"
                             :links="data.meta.links" :totalPage="data.meta.total">
                         </DatatablePagination>
                     </div>
@@ -146,6 +144,7 @@
 import { router } from '@inertiajs/vue3'
 import DatatablePagination from '../Datatable/DatatablePaginator.vue'
 import DatatableSearch from '../Datatable/DatatableSearch.vue'
+import { debounce } from 'lodash';
 export default {
     components: {
         DatatablePagination,
@@ -159,6 +158,11 @@ export default {
             pagination: this.filters.pagination,
             page: this.filters.page
         }
+    },
+    computed: {
+        debouncedSearch: debounce(function () {
+            return this.search;
+        }, 300)
     },
     props: {
         data: {
@@ -202,7 +206,7 @@ export default {
         },
         paginateTable(input) {
             this.pagination = input;
-            console.log(input);
+            this.page = 1;
             this.getData();
         },
         searchTable(input) {
