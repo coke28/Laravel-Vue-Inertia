@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CategoryResource;
+use DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use DB;
 
 class CategoryController extends Controller
 {
@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = DB::table("categories")->where('deleted_at', '=', null);
+        $categories = DB::table('categories')->where('deleted_at', '=', null);
 
         if ($request->search) {
             $searchTerm = $request->search;
@@ -23,8 +23,8 @@ class CategoryController extends Controller
             //     ['category_description', 'like', '%' . $searchTerm . '%'],
             // ]);
             $categories = $categories->where(function ($query) use ($searchTerm) {
-                return $query->where('category_name', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('category_description', 'like', '%' . $searchTerm . '%');
+                return $query->where('category_name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('category_description', 'like', '%'.$searchTerm.'%');
             });
         }
         if ($request->columnToBeSorted && $request->order) {
@@ -43,21 +43,20 @@ class CategoryController extends Controller
         // Transform categories using the API resource
         $transformedCategories = CategoryResource::collection($categories);
 
-
         return Inertia::render(
-            "CategoryTable",
+            'CategoryTable',
             [
-                "data" => $transformedCategories,
+                'data' => $transformedCategories,
                 'tableColumns' => [
-                    array('header_name' => 'ID', 'header_value' => 'id', 'orderable' => true),
-                    array('header_name' => 'Category Name', 'header_value' => 'category_name', 'orderable' => true),
-                    array('header_name' => 'Category Description', 'header_value' => 'category_description', 'orderable' => true),
+                    ['header_name' => 'ID', 'header_value' => 'id', 'orderable' => true],
+                    ['header_name' => 'Category Name', 'header_value' => 'category_name', 'orderable' => true],
+                    ['header_name' => 'Category Description', 'header_value' => 'category_description', 'orderable' => true],
                 ],
                 'tools' => [
-                    array('tool_name' => 'index', 'tool_url' => route('categories.index')),
-                    array('tool_name' => 'delete', 'tool_url' => 'api/form/delete/'),
-                    array('tool_name' => 'edit'),
-                    array('tool_name' => 'redirect', 'redirect_url' => '/user'),
+                    ['tool_name' => 'index', 'tool_url' => route('categories.index')],
+                    ['tool_name' => 'delete', 'tool_url' => 'api/form/delete/'],
+                    ['tool_name' => 'edit'],
+                    ['tool_name' => 'redirect', 'redirect_url' => '/user'],
                 ],
                 'filters' => [
                     'search' => $request->search,
@@ -65,7 +64,7 @@ class CategoryController extends Controller
                     'page' => $request->page,
                     'order' => $request->order,
                     'columnToBeSorted' => $request->columnToBeSorted,
-                ]
+                ],
             ]
         );
     }
