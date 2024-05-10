@@ -35,7 +35,6 @@
 import { Link } from '@inertiajs/vue3'
 export default {
     components: {
-        // eslint-disable-next-line vue/no-reserved-component-names
         Link,
     },
     props: {

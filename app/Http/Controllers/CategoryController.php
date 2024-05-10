@@ -19,8 +19,8 @@ class CategoryController extends Controller
         if ($request->search) {
             $searchTerm = $request->search;
             $categories = $categories->where(function ($query) use ($searchTerm) {
-                return $query->where('category_name', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('category_description', 'like', '%' . $searchTerm . '%');
+                return $query->where('category_name', 'like', '%'.$searchTerm.'%')
+                    ->orWhere('category_description', 'like', '%'.$searchTerm.'%');
             });
         }
         if ($request->columnToBeSorted && $request->order) {
@@ -32,7 +32,7 @@ class CategoryController extends Controller
         $transformedCategories = CategoryResource::collection($categories);
 
         return Inertia::render(
-            'CategoryTable',
+            'Category',
             [
                 'data' => $transformedCategories,
                 'indexRoute' => 'categories.index',
