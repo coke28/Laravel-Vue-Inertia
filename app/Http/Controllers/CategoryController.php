@@ -18,27 +18,15 @@ class CategoryController extends Controller
 
         if ($request->search) {
             $searchTerm = $request->search;
-            // $categories->whereAny([
-            //     ['category_name', 'like', '%' . $searchTerm . '%'],
-            //     ['category_description', 'like', '%' . $searchTerm . '%'],
-            // ]);
             $categories = $categories->where(function ($query) use ($searchTerm) {
-                return $query->where('category_name', 'like', '%'.$searchTerm.'%')
-                    ->orWhere('category_description', 'like', '%'.$searchTerm.'%');
+                return $query->where('category_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('category_description', 'like', '%' . $searchTerm . '%');
             });
         }
         if ($request->columnToBeSorted && $request->order) {
             $categories->orderBy($request->columnToBeSorted, $request->order);
         }
-
         $categories = $request->pagination ? $categories->paginate($request->pagination)->withQueryString() : $categories->paginate(5)->withQueryString();
-        //append filters on pagination URL as query strings
-        // $categories->appends([
-        //     'search' => $request->search,
-        //     'pagination' => $request->pagination ? $request->pagination : '5',
-        //     'order' => $request->order,
-        //     'columnToBeSorted' => $request->columnToBeSorted,
-        // ])->links();
 
         // Transform categories using the API resource
         $transformedCategories = CategoryResource::collection($categories);
