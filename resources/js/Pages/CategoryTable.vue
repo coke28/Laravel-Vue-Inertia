@@ -15,6 +15,10 @@ export default {
       type: Object,
       required: true,
     },
+    indexRoute: {
+      type: String,
+      required: true,
+    },
     tableColumns: {
       type: Array,
       required: true,
@@ -39,6 +43,6 @@ export default {
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Category</h2>
     </template>
-    <Datatable :data="data" :tableColumns="tableColumns" :tools="tools" :filters="filters"></Datatable>
+    <Datatable :data="data" :indexRoute="indexRoute" :tableColumns="tableColumns" :tools="tools" :filters="filters"></Datatable>
   </AuthenticatedLayout>
 </template>

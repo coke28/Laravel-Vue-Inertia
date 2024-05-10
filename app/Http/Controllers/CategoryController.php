@@ -35,6 +35,7 @@ class CategoryController extends Controller
             'CategoryTable',
             [
                 'data' => $transformedCategories,
+                'indexRoute' => 'categories.index',
                 'tableColumns' => [
                     ['header_name' => 'ID', 'header_value' => 'id', 'orderable' => true],
                     ['header_name' => 'Category Name', 'header_value' => 'category_name', 'orderable' => true],
