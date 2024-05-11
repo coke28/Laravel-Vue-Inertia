@@ -14,16 +14,16 @@ export default {
             type: Object,
             required: true,
         },
-        indexRoute: {
+        dataModel: {
             type: String,
-            required: true,
+            default: "Default data model",
         },
         tableColumns: {
             type: Array,
             required: true,
         },
         tools: {
-            type: Array,
+            type: Object,
             required: true,
         },
         filters: {
@@ -47,7 +47,7 @@ export default {
         </template>
         <Datatable
             :data="data"
-            :indexRoute="indexRoute"
+            :dataModel="dataModel"
             :tableColumns="tableColumns"
             :tools="tools"
             :filters="filters"

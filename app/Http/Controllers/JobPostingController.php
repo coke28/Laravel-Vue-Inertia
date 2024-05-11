@@ -36,6 +36,7 @@ class JobPostingController extends Controller
             'JobPosting',
             [
                 'data' => $transformedJobPostings,
+                'dataModel' => "Job Posting",
                 'tableColumns' => [
                     ['header_name' => 'ID', 'header_value' => 'id', 'orderable' => true],
                     ['header_name' => 'Job Name', 'header_value' => 'job_name', 'orderable' => true],
@@ -44,7 +45,7 @@ class JobPostingController extends Controller
                 'tools' => [
                     'indexRoute' => route('jobPostings.index'),
                     'addRoute' => route('jobPostings.create'),
-                    'editRoute' => route('jobPostings.destroy'),
+                    'editRoute' => route('jobPostings.index'),
                     // 'deleteRoute' => route('jobPostings.destroy'),
                 ],
                 'filters' => [

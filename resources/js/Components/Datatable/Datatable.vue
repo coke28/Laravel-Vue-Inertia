@@ -7,7 +7,7 @@
                         <div
                             class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 pt-4 p-4">
                             <PrimaryButton v-if="tools.addRoute">
-                                <Link href="/">Add Job Posting</Link>
+                                <Link :href="tools.addRoute">Add {{ dataModel }}</Link>
                             </PrimaryButton>
 
                             <DatatableSearch
@@ -129,17 +129,17 @@ export default {
             type: Object,
             required: true,
         },
-        indexRoute: {
+        dataModel: {
             type: String,
-            required: true,
+            default: "Default data model",
         },
         tableColumns: {
             type: Array,
             required: true,
         },
         tools: {
-            type: Array,
-            required: false,
+            type: Object,
+            required: true,
         },
         filters: {
             type: Object,
@@ -149,7 +149,7 @@ export default {
     methods: {
         getData() {
             router.get(
-                this.indexRoute,
+                this.tools.indexRoute,
                 {
                     columnToBeSorted: this.columnToBeSorted,
                     order: this.order,
