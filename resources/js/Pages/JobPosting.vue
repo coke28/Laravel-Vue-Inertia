@@ -5,10 +5,10 @@ import Datatable from "../Components/Datatable/Datatable.vue";
 
 export default {
     components: {
-        AuthenticatedLayout,
         Head,
         Datatable,
     },
+    layout: AuthenticatedLayout,
     props: {
         data: {
             type: Object,
@@ -37,6 +37,28 @@ export default {
 <template>
     <Head title="Job Postings" />
 
+    <header class="bg-white dark:bg-gray-800 shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h2
+                class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
+            >
+                Job Posting
+            </h2>
+        </div>
+    </header>
+
+    <Datatable
+        :data="data"
+        :dataModel="dataModel"
+        :tableColumns="tableColumns"
+        :tools="tools"
+        :filters="filters"
+    ></Datatable>
+</template>
+
+<!-- <template>
+    <Head title="Job Postings" />
+
     <AuthenticatedLayout>
         <template #header>
             <h2
@@ -53,4 +75,4 @@ export default {
             :filters="filters"
         ></Datatable>
     </AuthenticatedLayout>
-</template>
+</template> -->

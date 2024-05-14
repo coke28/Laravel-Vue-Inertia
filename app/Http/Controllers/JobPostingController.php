@@ -3,32 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\JobPostingResource;
-use DB;
+use App\Services\JobPostingService;
 use App\Models\JobPosting;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class JobPostingController extends Controller
 {
+    private JobPostingService $jobPostingService;
+
+    public function __construct(JobPostingService $jobPostingService)
+    {
+        $this->jobPostingService = $jobPostingService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $jobPostings = DB::table('job_postings')->where('deleted_at', '=', null);
 
-        if ($request->search) {
-            $searchTerm = $request->search;
-            $jobPostings = $jobPostings->where(function ($query) use ($searchTerm) {
-                return $query->where('job_name', 'like', '%' . $searchTerm . '%')
-                    ->orWhere('job_description', 'like', '%' . $searchTerm . '%');
-            });
-        }
-        if ($request->columnToBeSorted && $request->order) {
-            $jobPostings->orderBy($request->columnToBeSorted, $request->order);
-        }
-        $jobPostings = $request->pagination ? $jobPostings->paginate($request->pagination)->withQueryString() : $jobPostings->paginate(5)->withQueryString();
-
+        $jobPostings = $this->jobPostingService->getJobPostings($request->search, $request->order, $request->columnToBeSorted, $request->pagination);
         // Transform jobPostings using the API resource
         $transformedJobPostings = JobPostingResource::collection($jobPostings);
 
@@ -64,7 +58,7 @@ class JobPostingController extends Controller
      */
     public function create()
     {
-        return Inertia::render('JobPostingForm');
+        return Inertia::render('Forms/JobPostingForm');
     }
 
     /**
