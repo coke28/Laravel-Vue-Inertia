@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobPostingRequest;
 use App\Http\Resources\JobPostingResource;
 use App\Services\JobPostingService;
 use App\Models\JobPosting;
@@ -10,19 +11,19 @@ use Inertia\Inertia;
 
 class JobPostingController extends Controller
 {
-    private JobPostingService $jobPostingService;
+    // private JobPostingService $jobPostingService;
 
-    public function __construct(JobPostingService $jobPostingService)
-    {
-        $this->jobPostingService = $jobPostingService;
-    }
+    // public function __construct(JobPostingService $jobPostingService)
+    // {
+    //     $this->jobPostingService = $jobPostingService;
+    // }
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, JobPostingService $jobPostingService)
     {
 
-        $jobPostings = $this->jobPostingService->getJobPostings($request->search, $request->order, $request->columnToBeSorted, $request->pagination);
+        $jobPostings = $jobPostingService->getJobPostings($request->search, $request->order, $request->columnToBeSorted, $request->pagination);
         // Transform jobPostings using the API resource
         $transformedJobPostings = JobPostingResource::collection($jobPostings);
 
@@ -58,15 +59,27 @@ class JobPostingController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Forms/JobPostingForm');
+        return Inertia::render(
+            'Forms/JobPostingForm',
+            [
+                'storeRoute' => route('jobPostings.store'),
+                'HELLO' => "HELLO"
+            ]
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(JobPostingRequest $request)
     {
-        //
+        $jobPosting = new JobPosting();
+        $jobPosting->job_name = $request->job_name;
+        $jobPosting->job_description = $request->job_description;
+        $jobPosting->status = $request->status;
+        $jobPosting->save();
+
+        return redirect(route('jobPostings.index'))->with('success', 'success');
     }
 
     /**

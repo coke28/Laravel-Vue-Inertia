@@ -27,7 +27,7 @@ class UniqueExceptCurrent implements ValidationRule
         //
         $query = DB::table($this->table)
             ->where($this->column, $value)
-            ->where('deleted', '0');
+            ->whereNotNull('deleted_at');
         if ($this->model) {
             $query = $query->where('id', '!=', $this->model->id);
         }
