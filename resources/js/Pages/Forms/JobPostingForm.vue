@@ -17,11 +17,12 @@
                     <div class="sm:col-span-2">
                         <InputLabel value="Job Name"></InputLabel>
                         <TextInput
+                            placeholder="Please Enter Job Name"
                             v-model="fields.job_name"
                             autofocus
-                            required
                         ></TextInput>
                         <InputError
+                            class="mt-1"
                             v-if="errors.job_name"
                             :message="errors.job_name"
                         ></InputError>
@@ -29,9 +30,11 @@
                     <div class="sm:col-span-2">
                         <InputLabel value="Job Description"></InputLabel>
                         <TextAreaInput
+                            placeholder="Please Enter Job Description"
                             v-model="fields.job_description"
                         ></TextAreaInput>
                         <InputError
+                            class="mt-1"
                             v-if="errors.job_description"
                             :message="errors.job_description"
                         ></InputError>
@@ -43,6 +46,7 @@
                             required
                         ></SelectInput>
                         <InputError
+                            class="mt-1"
                             v-if="errors.status"
                             :message="errors.status"
                         ></InputError>
@@ -89,12 +93,14 @@ export default {
     data() {
         return {
             fields: {},
-            errors: {},
         };
     },
     props: {
         storeRoute: {
             type: String,
+        },
+        errors: {
+            type: Object,
         },
     },
     methods: {

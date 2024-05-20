@@ -63,7 +63,6 @@ class JobPostingController extends Controller
             'Forms/JobPostingForm',
             [
                 'storeRoute' => route('jobPostings.store'),
-                'HELLO' => "HELLO"
             ]
         );
     }
@@ -79,7 +78,7 @@ class JobPostingController extends Controller
         $jobPosting->status = $request->status;
         $jobPosting->save();
 
-        return redirect(route('jobPostings.index'))->with('success', 'success');
+        return redirect(route('jobPostings.index'))->with('toast', 'Toast endpoint!');
     }
 
     /**
