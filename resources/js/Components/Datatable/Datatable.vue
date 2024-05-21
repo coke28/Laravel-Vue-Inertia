@@ -2,12 +2,19 @@
     <div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <div
+                    class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg"
+                >
+                    <div
+                        class="relative overflow-x-auto shadow-md sm:rounded-lg"
+                    >
                         <div
-                            class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 pt-4 p-4">
+                            class="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4 pt-4 p-4"
+                        >
                             <PrimaryButton v-if="tools.addRoute">
-                                <Link :href="tools.addRoute">Add {{ dataModel }}</Link>
+                                <Link :href="tools.addRoute"
+                                    >Add {{ dataModel }}</Link
+                                >
                             </PrimaryButton>
 
                             <DatatableSearch
@@ -16,7 +23,9 @@
                             >
                             </DatatableSearch>
                         </div>
-                        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                        <table
+                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                        >
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                             >
@@ -33,9 +42,9 @@
                                                 v-if="column.orderable"
                                                 @click="
                                                     sortColumn(
-                                                        column.header_value
+                                                        column.header_value,
                                                     )
-                                                    "
+                                                "
                                             >
                                                 <svg
                                                     class="w-3 h-3 ms-1.5"
@@ -75,15 +84,13 @@
                                     >
                                         {{ data_row[column.header_value] }}
                                     </th>
-                                    <td
-                                        v-if="tools"
-                                        class="px-6 py-4"
-                                    >
+                                    <td v-if="tools" class="px-6 py-4">
                                         <a
                                             v-if="tools.editRoute"
                                             href="#"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-                                        >Edit</a>
+                                            >Edit</a
+                                        >
                                     </td>
                                 </tr>
                             </tbody>
@@ -157,7 +164,7 @@ export default {
                     page: this.page,
                     search: this.search,
                 },
-                { preserveState: true }
+                { preserveState: true },
             );
         },
         sortColumn(selectedColumn) {
