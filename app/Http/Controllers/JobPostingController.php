@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JobPostingRequest;
 use App\Http\Resources\JobPostingResource;
-use App\Services\JobPostingService;
 use App\Models\JobPosting;
+use App\Services\JobPostingService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -31,7 +31,7 @@ class JobPostingController extends Controller
             'JobPosting',
             [
                 'data' => $transformedJobPostings,
-                'dataModel' => "Job Posting",
+                'dataModel' => 'Job Posting',
                 'tableColumns' => [
                     ['header_name' => 'ID', 'header_value' => 'id', 'orderable' => true],
                     ['header_name' => 'Job Name', 'header_value' => 'job_name', 'orderable' => true],
@@ -78,7 +78,11 @@ class JobPostingController extends Controller
         $jobPosting->status = $request->status;
         $jobPosting->save();
 
-        return redirect(route('jobPostings.index'))->with('toast', 'Toast endpoint!');
+        return redirect(route('jobPostings.index'))
+            ->with([
+                'message' => $jobPosting->job_name.' '.'Job Posting Create',
+                'type' => 'check',
+            ]);
     }
 
     /**

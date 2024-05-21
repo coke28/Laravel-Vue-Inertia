@@ -3,20 +3,24 @@
 namespace App\Rules;
 
 use Closure;
-use Illuminate\Contracts\Validation\ValidationRule;
 use DB;
+use Illuminate\Contracts\Validation\ValidationRule;
 
 class UniqueExceptCurrent implements ValidationRule
 {
     protected $table;
+
     protected $column;
+
     protected $model;
+
     public function __construct($table, $column, $model)
     {
         $this->table = $table;
         $this->column = $column;
         $this->model = $model;
     }
+
     /**
      * Run the validation rule.
      *

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\UniqueExceptCurrent;
+use Illuminate\Foundation\Http\FormRequest;
 
 class JobPostingRequest extends FormRequest
 {

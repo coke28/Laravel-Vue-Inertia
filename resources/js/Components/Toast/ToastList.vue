@@ -9,9 +9,10 @@ import toast from "@/Stores/toast";
 const page = usePage();
 
 let removeFinshEventListener = router.on("finish", () => {
-    if (page.props.toast) {
+    if (page.props.toast.message) {
         toast.add({
-            message: page.props.toast,
+            message: page.props.toast.message,
+            type: page.props.toast.type,
         });
     }
 });
@@ -35,7 +36,8 @@ function remove(index) {
             v-for="(item, index) in toast.items"
             :key="item.key"
             :message="item.message"
-            :duration="1000"
+            :type="item.type"
+            :duration="2000"
             @remove="remove(index)"
         />
     </TransitionGroup>
