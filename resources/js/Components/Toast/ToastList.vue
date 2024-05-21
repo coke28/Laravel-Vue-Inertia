@@ -2,13 +2,13 @@
 <script setup>
 import ToastListItem from "@/Components/Toast/ToastListItem.vue";
 import { onUnmounted, ref } from "vue";
-import { router } from '@inertiajs/vue3'
-import { usePage } from '@inertiajs/vue3'
+import { router } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 import toast from "@/Stores/toast";
 
 const page = usePage();
 
-let removeFinshEventListener = router .on("finish", () => {
+let removeFinshEventListener = router.on("finish", () => {
     if (page.props.toast) {
         toast.add({
             message: page.props.toast,
