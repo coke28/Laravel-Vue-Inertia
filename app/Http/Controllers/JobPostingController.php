@@ -82,7 +82,7 @@ class JobPostingController extends Controller
 
         return redirect(route('jobPostings.index'))
             ->with([
-                'message' => $jobPosting->job_name.' '.'Job Posting Created',
+                'message' => $jobPosting->job_name . ' ' . 'Job Posting Created',
                 'type' => 'check',
             ]);
     }
@@ -104,7 +104,7 @@ class JobPostingController extends Controller
         return Inertia::render(
             'Forms/JobPostingForm',
             [
-                'headerTitle' => 'Editing Job Listing ID: '.$jobPosting->id,
+                'headerTitle' => 'Editing Job Listing ID: ' . $jobPosting->id,
                 'editMode' => true,
                 'submitRoute' => route('jobPostings.update', $jobPosting->id),
                 'goBackRoute' => route('jobPostings.index'),
@@ -125,7 +125,7 @@ class JobPostingController extends Controller
 
         return redirect(route('jobPostings.index'))
             ->with([
-                'message' => $jobPosting->job_name.' '.'Job Posting Updated',
+                'message' => $jobPosting->job_name . ' ' . 'Job Posting Updated',
                 'type' => 'check',
             ]);
     }
@@ -135,6 +135,11 @@ class JobPostingController extends Controller
      */
     public function destroy(JobPosting $jobPosting)
     {
-        //
+        $jobPosting->delete();
+        return redirect(route('jobPostings.index'))
+            ->with([
+                'message' => $jobPosting->job_name . ' ' . 'Job Posting Deleted',
+                'type' => 'check',
+            ]);
     }
 }
