@@ -63,7 +63,7 @@
           <PrimaryButton type="submit">Submit</PrimaryButton>
 
           <SecondaryButton>
-            <Link href="/">Go Back</Link>
+            <Link :href="goBackRoute">Go Back</Link>
           </SecondaryButton>
         </div>
       </form>
@@ -115,6 +115,11 @@ export default {
     submitRoute: {
       type: String,
     },
+    goBackRoute: {
+      type: String,
+      default: "/",
+    },
+
     errors: {
       type: Object,
     },
