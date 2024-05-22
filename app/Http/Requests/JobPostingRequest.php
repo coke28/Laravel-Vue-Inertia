@@ -27,7 +27,7 @@ class JobPostingRequest extends FormRequest
                 'required',
                 'string',
                 // Use the UniqueExceptCurrent rule conditionally
-                new UniqueExceptCurrent('job_postings', 'job_name', $this->route('job_posting')),
+                new UniqueExceptCurrent('job_postings', 'job_name', $this->route('jobPosting')),
             ],
             'job_description' => 'required|string',
             'status' => 'required|in:1,0',

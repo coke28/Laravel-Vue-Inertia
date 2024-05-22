@@ -28,18 +28,16 @@ class UniqueExceptCurrent implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        //
         $query = DB::table($this->table)
             ->where($this->column, $value)
-            ->whereNotNull('deleted_at');
+            ->whereNull('deleted_at');
         if ($this->model) {
             $query = $query->where('id', '!=', $this->model->id);
         }
-        $query = $query->count();
-        if ($query > 0) {
+        $queryCount = $query->count();
+        if ($queryCount > 0) {
             $fail('The :attribute is already in use.');
 
         }
-
     }
 }

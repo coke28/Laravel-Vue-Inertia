@@ -82,7 +82,7 @@ class JobPostingController extends Controller
 
         return redirect(route('jobPostings.index'))
             ->with([
-                'message' => $jobPosting->job_name . ' ' . 'Job Posting Created',
+                'message' => $jobPosting->job_name.' '.'Job Posting Created',
                 'type' => 'check',
             ]);
     }
@@ -104,7 +104,7 @@ class JobPostingController extends Controller
         return Inertia::render(
             'Forms/JobPostingForm',
             [
-                'headerTitle' => 'Editing Job Listing ID: ' . $jobPosting->id,
+                'headerTitle' => 'Editing Job Listing ID: '.$jobPosting->id,
                 'editMode' => true,
                 'submitRoute' => route('jobPostings.update', $jobPosting->id),
                 'goBackRoute' => route('jobPostings.index'),
@@ -116,9 +116,18 @@ class JobPostingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JobPosting $jobPosting)
+    public function update(JobPostingRequest $request, JobPosting $jobPosting)
     {
-        //
+        $jobPosting->job_name = $request->job_name;
+        $jobPosting->job_description = $request->job_description;
+        $jobPosting->status = $request->status;
+        $jobPosting->save();
+
+        return redirect(route('jobPostings.index'))
+            ->with([
+                'message' => $jobPosting->job_name.' '.'Job Posting Updated',
+                'type' => 'check',
+            ]);
     }
 
     /**

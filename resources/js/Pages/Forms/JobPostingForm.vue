@@ -126,12 +126,14 @@ export default {
   },
   methods: {
     handlePrimaryClick(event) {
-      // Your normal click logic here
       console.log("Primary button clicked", event);
     },
     handleSubmit() {
-      // Your normal click logic here
-      router.post(this.submitRoute, this.fields);
+      if (this.editMode) {
+        router.patch(this.submitRoute, this.fields);
+      } else {
+        router.post(this.submitRoute, this.fields);
+      }
     },
   },
   mounted() {
