@@ -30,6 +30,7 @@
         placeholder="Search for items"
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
+        autocomplete="off"
       />
     </div>
   </div>

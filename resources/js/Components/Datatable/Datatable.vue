@@ -114,9 +114,10 @@
 
                         <DropdownLink
                           v-if="tools.deleteRoute"
+                          href="#"
                           method="post"
                           as="button"
-                          @click="deleteRoute(data_row.id)"
+                          @click="deleteModel(data_row.id)"
                         >
                           Delete
                         </DropdownLink>
@@ -147,6 +148,7 @@ import DatatableSearch from "../Datatable/DatatableSearch.vue";
 import PrimaryButton from "../PrimaryButton.vue";
 import Dropdown from "../Dropdown.vue";
 import DropdownLink from "../DropdownLink.vue";
+import debounce from "lodash/debounce";
 
 export default {
   components: {
@@ -216,10 +218,15 @@ export default {
       this.page = 1;
       this.getData();
     },
-    searchTable(input) {
+
+    searchTable: debounce(function (input) {
       this.page = 1;
       this.search = input;
       this.getData();
+    }, 200),
+
+    deleteModel(input) {
+      router.delete(route(this.tools.deleteRoute, input));
     },
   },
 };
