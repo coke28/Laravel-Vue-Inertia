@@ -18,6 +18,7 @@ class JobPostingResource extends JsonResource
             'id' => $this->id,
             'job_name' => $this->job_name,
             'job_description' => $this->job_description,
+            'status' => $this->status,
         ];
     }
 }

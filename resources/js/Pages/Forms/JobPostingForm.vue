@@ -6,7 +6,7 @@
             <h2
                 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight"
             >
-                Create a Job Posting
+                {{ headerTitle }}
             </h2>
         </div>
     </header>
@@ -15,6 +15,12 @@
             <form @submit.prevent="handleSubmit">
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2">
+                        <input
+                            v-if="editMode"
+                            type="hidden"
+                            name="id"
+                            v-model="fields.id"
+                        />
                         <InputLabel value="Job Name"></InputLabel>
                         <TextInput
                             placeholder="Please Enter Job Name"
@@ -96,7 +102,17 @@ export default {
         };
     },
     props: {
-        storeRoute: {
+        headerTitle: {
+            type: String,
+        },
+        editMode: {
+            type: Boolean,
+            default: false,
+        },
+        jobPosting: {
+            type: Object,
+        },
+        submitRoute: {
             type: String,
         },
         errors: {
@@ -110,10 +126,13 @@ export default {
         },
         handleSubmit() {
             // Your normal click logic here
-            console.log(this.storeRoute);
-            router.post(this.storeRoute, this.fields);
+            router.post(this.submitRoute, this.fields);
         },
     },
-    mounted() {},
+    mounted() {
+        if (this.editMode && this.jobPosting) {
+            this.fields = this.jobPosting;
+        }
+    },
 };
 </script>

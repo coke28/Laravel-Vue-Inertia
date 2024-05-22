@@ -40,8 +40,8 @@ class JobPostingController extends Controller
                 'tools' => [
                     'indexRoute' => route('jobPostings.index'),
                     'addRoute' => route('jobPostings.create'),
-                    'editRoute' => route('jobPostings.index'),
-                    // 'deleteRoute' => route('jobPostings.destroy'),
+                    'editRoute' => 'jobPostings.edit',
+                    'deleteRoute' => 'jobPostings.destroy',
                 ],
                 'filters' => [
                     'search' => $request->search,
@@ -62,6 +62,7 @@ class JobPostingController extends Controller
         return Inertia::render(
             'Forms/JobPostingForm',
             [
+                'headerTitle' => "Create Job Listing",
                 'storeRoute' => route('jobPostings.store'),
             ]
         );
@@ -80,7 +81,7 @@ class JobPostingController extends Controller
 
         return redirect(route('jobPostings.index'))
             ->with([
-                'message' => $jobPosting->job_name.' '.'Job Posting Create',
+                'message' => $jobPosting->job_name . ' ' . 'Job Posting Created',
                 'type' => 'check',
             ]);
     }
@@ -90,7 +91,7 @@ class JobPostingController extends Controller
      */
     public function show(JobPosting $jobPosting)
     {
-        //
+
     }
 
     /**
@@ -99,6 +100,15 @@ class JobPostingController extends Controller
     public function edit(JobPosting $jobPosting)
     {
         //
+        return Inertia::render(
+            'Forms/JobPostingForm',
+            [
+                'headerTitle' => "Editing Job Listing ID: " . $jobPosting->id,
+                'editMode' => true,
+                'submitRoute' => route('jobPostings.update', $jobPosting->id),
+                'jobPosting' => new JobPostingResource($jobPosting),
+            ]
+        );
     }
 
     /**

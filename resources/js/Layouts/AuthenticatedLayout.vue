@@ -237,15 +237,3 @@ const showingNavigationDropdown = ref(false);
         </div>
     </div>
 </template>
-
-<style scoped>
-.flash-message-container {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-</style>
