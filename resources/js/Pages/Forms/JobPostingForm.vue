@@ -19,12 +19,12 @@
               v-if="editMode"
               type="hidden"
               name="id"
-              v-model="fields.id"
+              v-model.trim="fields.id"
             />
             <InputLabel value="Job Name"></InputLabel>
             <TextInput
               placeholder="Please Enter Job Name"
-              v-model="fields.job_name"
+              v-model.trim="fields.job_name"
               autofocus
             ></TextInput>
             <InputError
@@ -37,7 +37,7 @@
             <InputLabel value="Job Description"></InputLabel>
             <TextAreaInput
               placeholder="Please Enter Job Description"
-              v-model="fields.job_description"
+              v-model.trim="fields.job_description"
             ></TextAreaInput>
             <InputError
               class="mt-1"
@@ -48,7 +48,7 @@
           <div class="sm:col-span-2">
             <InputLabel value="Active"></InputLabel>
             <SelectInput
-              v-model="fields.status"
+              v-model.number="fields.status"
               required
             ></SelectInput>
             <InputError
