@@ -13,11 +13,7 @@
                 <Link :href="tools.addRoute">Add {{ dataModel }}</Link>
               </PrimaryButton>
 
-              <DatatableSearch
-                @update:modelValue="searchTable"
-                :modelValue="search"
-              >
-              </DatatableSearch>
+              <DatatableSearch v-model.trim="search"> </DatatableSearch>
             </div>
             <table
               class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -227,6 +223,11 @@ export default {
 
     deleteModel(input) {
       router.delete(route(this.tools.deleteRoute, input));
+    },
+  },
+  watch: {
+    search(newValue) {
+      this.searchTable(newValue);
     },
   },
 };
