@@ -141,13 +141,25 @@ export default {
       console.log("Primary button clicked", event);
     },
     handleSubmit() {
-      this.loading = true;
       if (this.editMode) {
-        router.patch(this.submitRoute, this.fields);
+        router.patch(this.submitRoute, this.fields, {
+          onStart: () => {
+            this.loading = true;
+          },
+          onFinish: () => {
+            this.loading = false;
+          },
+        });
       } else {
-        router.post(this.submitRoute, this.fields);
+        router.post(this.submitRoute, this.fields, {
+          onStart: () => {
+            this.loading = true;
+          },
+          onFinish: () => {
+            this.loading = false;
+          },
+        });
       }
-      this.loading = false;
     },
   },
   mounted() {
