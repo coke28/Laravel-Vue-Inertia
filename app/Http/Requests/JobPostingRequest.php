@@ -30,7 +30,7 @@ class JobPostingRequest extends FormRequest
                 new UniqueExceptCurrent('job_postings', 'job_name', $this->route('jobPosting')),
             ],
             'job_description' => 'required|string',
-            'status' => 'required|in:1,0',
+            'status' => 'required|boolean',
         ];
     }
 }

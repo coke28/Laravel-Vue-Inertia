@@ -63,7 +63,7 @@ class JobPostingController extends Controller
             'Forms/JobPostingForm',
             [
                 'headerTitle' => 'Create Job Listing',
-                'storeRoute' => route('jobPostings.store'),
+                'submitRoute' => route('jobPostings.store'),
                 'goBackRoute' => route('jobPostings.index'),
             ]
         );

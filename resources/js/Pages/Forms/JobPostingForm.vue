@@ -60,10 +60,19 @@
         </div>
         <!-- Action Buttons -->
         <div class="flex justify-end gap-1 pt-4">
-          <PrimaryButton type="submit">Submit</PrimaryButton>
-
+          <PrimaryButton
+            type="submit"
+            :class="{ 'opacity-25': loading }"
+            :disabled="loading"
+            >Submit</PrimaryButton
+          >
           <SecondaryButton>
-            <Link :href="goBackRoute">Go Back</Link>
+            <Link
+              :href="goBackRoute"
+              :class="{ 'opacity-25': loading }"
+              :disabled="loading"
+              >Go Back</Link
+            >
           </SecondaryButton>
         </div>
       </form>
@@ -99,11 +108,13 @@ export default {
   data() {
     return {
       fields: {},
+      loading: false,
     };
   },
   props: {
     headerTitle: {
       type: String,
+      default: "Default Header",
     },
     editMode: {
       type: Boolean,
@@ -114,6 +125,7 @@ export default {
     },
     submitRoute: {
       type: String,
+      required: true,
     },
     goBackRoute: {
       type: String,
@@ -129,11 +141,13 @@ export default {
       console.log("Primary button clicked", event);
     },
     handleSubmit() {
+      this.loading = true;
       if (this.editMode) {
         router.patch(this.submitRoute, this.fields);
       } else {
         router.post(this.submitRoute, this.fields);
       }
+      this.loading = false;
     },
   },
   mounted() {
